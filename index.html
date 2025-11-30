@@ -46,19 +46,11 @@
             height: 2px;
             background-color: var(--text-dark);
             margin: 6px 0;
-            transition: all 0.3s ease;
+            transition: all 0.6s ease;
         }
 
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(7px, 7px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
+        .hamburger.active span {
+            transform: rotate(315deg);
         }
 
         /* Navigation Menu */
@@ -134,7 +126,7 @@
         .logo-container {
             width: 100%;
             max-width: 144px;
-            margin-left: 30px;
+            align-self: flex-start;
         }
 
         .logo-container img {
@@ -172,21 +164,13 @@
         /* Mailing List Form */
         .mailing-list {
             width: 100%;
-            background-color: var(--pure-white);
-            border-top: 1px solid var(--frame-border);
-        }
-
-        .mailing-list-inner {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 60px;
+            max-width: 500px;
+            margin-top: 40px;
         }
 
         .mailing-list form {
             display: flex;
             gap: 15px;
-            max-width: 500px;
-            margin: 0 auto;
         }
 
         .mailing-list input[type="email"] {
@@ -282,8 +266,7 @@
             }
 
             .left-section {
-                padding: 60px 40px 40px;
-                background-color: var(--pure-white);
+                display: none;
             }
 
             .main-content {
@@ -305,10 +288,6 @@
                 left: 60px;
             }
 
-            .left-section {
-                padding: 100px 30px 30px;
-            }
-
             .main-content {
                 padding: 40px 30px 60px;
             }
@@ -319,10 +298,6 @@
 
             .page h1 {
                 font-size: 36px;
-            }
-
-            .mailing-list-inner {
-                padding: 40px 30px;
             }
 
             .mailing-list form {
@@ -356,15 +331,23 @@
     <div id="home" class="home-container">
         <div class="content-wrapper">
             <div class="left-section">
+            </div>
+            <div class="main-content">
                 <div class="logo-container">
                     <img src="astralab_LOGO_Final_White.png" alt="Astralab">
                 </div>
-            </div>
-            <div class="main-content">
                 <div class="image-frame">
                     <img src="IMG_F1EAE9A93A48-1.jpeg" alt="Astralab Space">
                 </div>
                 <p class="tagline">A space for contemplation and creation in the heart of downtown Los Angeles</p>
+                
+                <!-- Mailing List -->
+                <div class="mailing-list">
+                    <form onsubmit="handleSubmit(event)">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Join</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -426,16 +409,6 @@
             <div class="page-frame">
                 <p>Content for Location page goes here...</p>
             </div>
-        </div>
-    </div>
-
-    <!-- Mailing List -->
-    <div class="mailing-list">
-        <div class="mailing-list-inner">
-            <form onsubmit="handleSubmit(event)">
-                <input type="email" placeholder="Enter your email" required>
-                <button type="submit">Join</button>
-            </form>
         </div>
     </div>
 
