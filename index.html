@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astralab - Downtown Los Angeles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Crimson+Pro:ital,wght@1,300&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --off-white: #F8F6F4;
+            --pure-white: #FFFFFF;
+            --text-dark: #2A2A2A;
+            --text-light: #FFFFFF;
+            --frame-border: #E8E6E4;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--off-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 1000;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 30px;
+            height: 2px;
+            background-color: var(--text-dark);
+            margin: 6px auto;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: var(--pure-white);
+            padding: 120px 60px;
+            transition: right 0.4s ease;
+            z-index: 999;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.05);
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+        }
+
+        .nav-menu ul li {
+            margin: 40px 0;
+        }
+
+        .nav-menu ul li a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-menu ul li a:hover {
+            opacity: 0.6;
+        }
+
+        /* Home Page */
+        .home-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px 120px;
+        }
+
+        .content-wrapper {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .left-frame {
+            background-color: var(--pure-white);
+            height: 600px;
+            border: 1px solid var(--frame-border);
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .logo-container {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            filter: invert(1);
+        }
+
+        .image-frame {
+            width: 100%;
+            max-width: 700px;
+            background-color: var(--pure-white);
+            padding: 30px;
+            border: 1px solid var(--frame-border);
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .tagline {
+            font-family: 'Crimson Pro', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 18px;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+            text-align: center;
+            max-width: 500px;
+            opacity: 0.8;
+        }
+
+        /* Mailing List Form */
+        .mailing-list {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .mailing-list form {
+            display: flex;
+            gap: 15px;
+            background-color: var(--pure-white);
+            padding: 20px 30px;
+            border: 1px solid var(--frame-border);
+        }
+
+        .mailing-list input[type="email"] {
+            flex: 1;
+            border: none;
+            border-bottom: 1px solid var(--frame-border);
+            padding: 10px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            background: transparent;
+            outline: none;
+        }
+
+        .mailing-list input[type="email"]::placeholder {
+            color: #B8B6B4;
+        }
+
+        .mailing-list button {
+            background-color: var(--text-dark);
+            color: var(--pure-white);
+            border: none;
+            padding: 12px 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .mailing-list button:hover {
+            opacity: 0.8;
+        }
+
+        /* Individual Pages */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 120px 60px 80px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page h1 {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .page-frame {
+            background-color: var(--pure-white);
+            padding: 80px;
+            border: 1px solid var(--frame-border);
+            min-height: 400px;
+        }
+
+        /* Page-specific colors */
+        .about-page { background-color: #F5F8F8; }
+        .book-page { background-color: #FFF5F5; }
+        .store-page { background-color: #FFFAF0; }
+        .services-page { background-color: #F8F8F8; }
+        .calendar-page { background-color: #F0F5F8; }
+        .location-page { background-color: #F8F5F8; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .left-frame {
+                display: none;
+            }
+
+            .page-frame {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                top: 30px;
+                right: 30px;
+            }
+
+            .home-container {
+                padding: 60px 20px 100px;
+            }
+
+            .page {
+                padding: 100px 30px 60px;
+            }
+
+            .page h1 {
+                font-size: 36px;
+            }
+
+            .mailing-list {
+                bottom: 40px;
+                width: 85%;
+            }
+
+            .mailing-list form {
+                flex-direction: column;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hamburger Menu -->
+    <button class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="#" onclick="navigateTo('home')">Home</a></li>
+            <li><a href="#" onclick="navigateTo('about')">About</a></li>
+            <li><a href="#" onclick="navigateTo('book')">Book</a></li>
+            <li><a href="#" onclick="navigateTo('store')">Store</a></li>
+            <li><a href="#" onclick="navigateTo('services')">Services</a></li>
+            <li><a href="#" onclick="navigateTo('calendar')">Calendar</a></li>
+            <li><a href="#" onclick="navigateTo('location')">Location</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="home-container">
+        <div class="content-wrapper">
+            <div class="left-frame"></div>
+            <div class="main-content">
+                <div class="logo-container">
+                    <img src="astralab_LOGO_Final_White.png" alt="Astralab">
+                </div>
+                <div class="image-frame">
+                    <img src="IMG_F1EAE9A93A48-1.jpeg" alt="Astralab Space">
+                </div>
+                <p class="tagline">A space for contemplation and creation in the heart of downtown Los Angeles</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page about-page">
+        <div class="page-content">
+            <h1>About</h1>
+            <div class="page-frame">
+                <p>Content for About page goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Page -->
+    <div id="book" class="page book-page">
+        <div class="page-content">
+            <h1>Book</h1>
+            <div class="page-frame">
+                <p>Content for Book page goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Store Page -->
+    <div id="store" class="page store-page">
+        <div class="page-content">
+            <h1>Store</h1>
+            <div class="page-frame">
+                <p>Content for Store page goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page services-page">
+        <div class="page-content">
+            <h1>Services</h1>
+            <div class="page-frame">
+                <p>Content for Services page goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Page -->
+    <div id="calendar" class="page calendar-page">
+        <div class="page-content">
+            <h1>Calendar</h1>
+            <div class="page-frame">
+                <p>Content for Calendar page goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Page -->
+    <div id="location" class="page location-page">
+        <div class="page-content">
+            <h1>Location</h1>
+            <div class="page-frame">
+                <p>Content for Location page goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mailing List -->
+    <div class="mailing-list">
+        <form onsubmit="handleSubmit(event)">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Join</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        }
+
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page, .home-container').forEach(page => {
+                page.style.display = 'none';
+            });
+
+            // Show selected page
+            if (pageId === 'home') {
+                document.getElementById('home').style.display = 'flex';
+            } else {
+                const page = document.getElementById(pageId);
+                page.style.display = 'block';
+                page.classList.add('active');
+            }
+
+            // Close menu
+            toggleMenu();
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            alert('Thank you for subscribing! Email: ' + email);
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
