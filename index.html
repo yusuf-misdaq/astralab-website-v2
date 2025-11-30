@@ -31,7 +31,7 @@
         .hamburger {
             position: fixed;
             top: 40px;
-            right: 40px;
+            left: 40px;
             width: 40px;
             height: 40px;
             cursor: pointer;
@@ -45,7 +45,7 @@
             width: 30px;
             height: 2px;
             background-color: var(--text-dark);
-            margin: 6px auto;
+            margin: 6px 0;
             transition: all 0.3s ease;
         }
 
@@ -64,20 +64,16 @@
         /* Navigation Menu */
         .nav-menu {
             position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            max-width: 400px;
-            height: 100vh;
-            background-color: var(--pure-white);
-            padding: 120px 60px;
-            transition: right 0.4s ease;
+            top: 100px;
+            left: 40px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease;
             z-index: 999;
-            box-shadow: -5px 0 20px rgba(0,0,0,0.05);
         }
 
         .nav-menu.active {
-            right: 0;
+            max-height: 600px;
         }
 
         .nav-menu ul {
@@ -85,8 +81,24 @@
         }
 
         .nav-menu ul li {
-            margin: 40px 0;
+            margin: 30px 0;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
         }
+
+        .nav-menu.active ul li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-menu.active ul li:nth-child(1) { transition-delay: 0.1s; }
+        .nav-menu.active ul li:nth-child(2) { transition-delay: 0.15s; }
+        .nav-menu.active ul li:nth-child(3) { transition-delay: 0.2s; }
+        .nav-menu.active ul li:nth-child(4) { transition-delay: 0.25s; }
+        .nav-menu.active ul li:nth-child(5) { transition-delay: 0.3s; }
+        .nav-menu.active ul li:nth-child(6) { transition-delay: 0.35s; }
+        .nav-menu.active ul li:nth-child(7) { transition-delay: 0.4s; }
 
         .nav-menu ul li a {
             color: var(--text-dark);
@@ -105,36 +117,38 @@
         .home-container {
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 40px 120px;
+            padding: 0;
+            background: linear-gradient(to right, var(--pure-white) 0%, var(--pure-white) 35%, var(--off-white) 35%, var(--off-white) 100%);
         }
 
         .content-wrapper {
-            max-width: 1400px;
+            max-width: 1600px;
             width: 100%;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 80px;
-            align-items: center;
+            grid-template-columns: 35% 65%;
+            min-height: 100vh;
         }
 
-        .left-frame {
-            background-color: var(--pure-white);
-            height: 600px;
-            border: 1px solid var(--frame-border);
+        .left-section {
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .main-content {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             gap: 60px;
+            padding: 80px 60px 200px;
         }
 
         .logo-container {
             width: 100%;
-            max-width: 300px;
+            max-width: 180px;
         }
 
         .logo-container img {
@@ -171,20 +185,22 @@
 
         /* Mailing List Form */
         .mailing-list {
-            position: fixed;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 500px;
+            width: 100%;
+            background-color: var(--pure-white);
+            border-top: 1px solid var(--frame-border);
+        }
+
+        .mailing-list-inner {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 60px;
         }
 
         .mailing-list form {
             display: flex;
             gap: 15px;
-            background-color: var(--pure-white);
-            padding: 20px 30px;
-            border: 1px solid var(--frame-border);
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         .mailing-list input[type="email"] {
@@ -218,6 +234,16 @@
 
         .mailing-list button:hover {
             opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--pure-white);
+            padding: 40px 60px;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #999;
         }
 
         /* Individual Pages */
@@ -261,13 +287,21 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .content-wrapper {
-                grid-template-columns: 1fr;
-                gap: 40px;
+            .home-container {
+                background: var(--off-white);
             }
 
-            .left-frame {
-                display: none;
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .left-section {
+                padding: 60px 40px 40px;
+                background-color: var(--pure-white);
+            }
+
+            .main-content {
+                padding: 60px 40px 80px;
             }
 
             .page-frame {
@@ -278,11 +312,19 @@
         @media (max-width: 768px) {
             .hamburger {
                 top: 30px;
-                right: 30px;
+                left: 30px;
             }
 
-            .home-container {
-                padding: 60px 20px 100px;
+            .nav-menu {
+                left: 30px;
+            }
+
+            .left-section {
+                padding: 100px 30px 30px;
+            }
+
+            .main-content {
+                padding: 40px 30px 60px;
             }
 
             .page {
@@ -293,14 +335,12 @@
                 font-size: 36px;
             }
 
-            .mailing-list {
-                bottom: 40px;
-                width: 85%;
+            .mailing-list-inner {
+                padding: 40px 30px;
             }
 
             .mailing-list form {
                 flex-direction: column;
-                padding: 20px;
             }
         }
     </style>
@@ -329,11 +369,12 @@
     <!-- Home Page -->
     <div id="home" class="home-container">
         <div class="content-wrapper">
-            <div class="left-frame"></div>
-            <div class="main-content">
+            <div class="left-section">
                 <div class="logo-container">
                     <img src="astralab_LOGO_Final_White.png" alt="Astralab">
                 </div>
+            </div>
+            <div class="main-content">
                 <div class="image-frame">
                     <img src="IMG_F1EAE9A93A48-1.jpeg" alt="Astralab Space">
                 </div>
@@ -404,11 +445,18 @@
 
     <!-- Mailing List -->
     <div class="mailing-list">
-        <form onsubmit="handleSubmit(event)">
-            <input type="email" placeholder="Enter your email" required>
-            <button type="submit">Join</button>
-        </form>
+        <div class="mailing-list-inner">
+            <form onsubmit="handleSubmit(event)">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Join</button>
+            </form>
+        </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Astralab. Downtown Los Angeles.</p>
+    </footer>
 
     <script>
         function toggleMenu() {
